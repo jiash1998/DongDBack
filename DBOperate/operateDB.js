@@ -72,13 +72,27 @@ exports.getOrganByName = (data, callback) => {
     });
 };
 
+//获取员工
+exports.getAllUser = (data, callback) => {
+  AllDB.users
+    .find({ organName: data.organName })
+    .then((res) => {
+      console.log(res);
+      callback(null, res);
+    })
+    .catch((err) => {
+      console.log(err);
+      callback(err);
+    });
+};
+
 //用户模块
 //获取所有组织
 exports.getAllOrgan = (callback) => {
   AllDB.organs
     .find({})
     .then((res) => {
-    //   console.log(res);
+      //   console.log(res);
       callback(null, res);
     })
     .catch((err) => {
@@ -96,7 +110,7 @@ exports.getInfoSelf = (data, callback) => {
       obj = res;
       if (res.organName != "none" && res.organCode != "none") {
         AllDB.organs.findOne({ organCode: res.organCode }).then((res) => {
-          callback(null, {user:obj,organ:res});
+          callback(null, { user: obj, organ: res });
         });
       } else {
         callback(null, obj);

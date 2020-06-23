@@ -80,6 +80,23 @@ router.post("/getOrganByName", (req, res) => {
   });
 });
 
+//获取员工
+router.post("/allOrganUser", (req, res) => {
+  operateDB.getAllUser(req.body, (err, data) => {
+    if (err) {
+      return res.json({
+        status: "错误",
+        msg: err,
+      });
+    }
+    return res.json({
+      status: "200",
+      value: data,
+      msg: "成功",
+    });
+  });
+});
+
 //用户模块
 //获取所有组织
 router.get("/getAllOrgan", (req, res) => {
@@ -100,7 +117,7 @@ router.get("/getAllOrgan", (req, res) => {
 
 //获取个人信息
 router.post("/getInfoSelf", (req, res) => {
-  operateDB.getInfoSelf(req.body,(err, data) => {
+  operateDB.getInfoSelf(req.body, (err, data) => {
     if (err) {
       return res.json({
         status: "发送错误",
