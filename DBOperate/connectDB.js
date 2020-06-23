@@ -8,18 +8,62 @@ mongoose.connect("mongodb://localhost/DongDataBase", {
 var Schema = mongoose.Schema;
 
 var SchemaUser = new Schema({
-  name: {
+  username: {
     type: String,
     required: true,
   },
-  age: {
-    type: Number,
-    default: 18,
+  password: {
+    type: String,
+    required: true,
+    default: "",
   },
-  birthday: {
-    type: Date,
-    default: new Date(),
+  phone: {
+    type: String,
+    default: "",
+  },
+  admin: {
+    type: String,
+    defalut: "false",
+  },
+  organName: {
+    type: String,
+    default: "none",
+  },
+  organCode: {
+    type: String,
+    default: "none",
   },
 });
 
-module.exports = mongoose.model("users", SchemaUser);
+var SchemaOrgan = new Schema({
+  organName: {
+    type: String,
+    required: true,
+  },
+  organCode: {
+    type: String,
+    required: true,
+    default: "",
+  },
+  organScale: {
+    type: String,
+    default: "",
+  },
+  organIndustry: {
+    type: String,
+    defalut: "",
+  },
+  organBoss: {
+    type: String,
+    default: "",
+  },
+  organPhone: {
+    type: String,
+    default: "",
+  },
+});
+
+module.exports = {
+  users: mongoose.model("users", SchemaUser),
+  organs:mongoose.model("organs", SchemaOrgan)
+};
