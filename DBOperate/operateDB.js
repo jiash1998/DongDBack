@@ -71,3 +71,57 @@ exports.getOrganByName = (data, callback) => {
       callback(err);
     });
 };
+
+//用户模块
+//获取所有组织
+exports.getAllOrgan = (callback) => {
+  AllDB.organs
+    .find({})
+    .then((res) => {
+    //   console.log(res);
+      callback(null, res);
+    })
+    .catch((err) => {
+      console.log(err);
+      callback(err);
+    });
+};
+//获取个人信息
+exports.getInfoSelf = (data, callback) => {
+  console.log(data);
+  let obj = {};
+  AllDB.users
+    .findOne({ username: data.username })
+    .then((res) => {
+      obj = res;
+      if (res.organName != "none" && res.organCode != "none") {
+        AllDB.organs.findOne({ organCode: res.organCode }).then((res) => {
+          callback(null, {user:obj,organ:res});
+        });
+      } else {
+        callback(null, obj);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      callback(err);
+    });
+};
+//加入组织
+exports.addOrgan = (data, callback) => {
+  console.log(data);
+
+  AllDB.users
+    .update(
+      { username: data.username },
+      { $set: { organName: data.organName, organCode: data.organCode } }
+    )
+    .then((res) => {
+      console.log(res);
+      callback(null, res);
+    })
+    .catch((er) => {
+      console.log(err);
+      callback(err);
+    });
+};

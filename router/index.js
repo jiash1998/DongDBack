@@ -80,4 +80,55 @@ router.post("/getOrganByName", (req, res) => {
   });
 });
 
+//用户模块
+//获取所有组织
+router.get("/getAllOrgan", (req, res) => {
+  operateDB.getAllOrgan((err, data) => {
+    if (err) {
+      return res.json({
+        status: "发送错误",
+        msg: err,
+      });
+    }
+    return res.json({
+      status: "200",
+      value: data,
+      msg: "保存成功",
+    });
+  });
+});
+
+//获取个人信息
+router.post("/getInfoSelf", (req, res) => {
+  operateDB.getInfoSelf(req.body,(err, data) => {
+    if (err) {
+      return res.json({
+        status: "发送错误",
+        msg: err,
+      });
+    }
+    return res.json({
+      status: "200",
+      value: data,
+      msg: "成功",
+    });
+  });
+});
+
+//加入组织
+router.post("/addOrgan", (req, res) => {
+  operateDB.addOrgan(req.body, (err, data) => {
+    if (err) {
+      return res.json({
+        status: "错误",
+        msg: err,
+      });
+    }
+    return res.json({
+      status: "200",
+      value: data,
+      msg: "保存成功",
+    });
+  });
+});
 module.exports = router;
