@@ -139,3 +139,35 @@ exports.addOrgan = (data, callback) => {
       callback(err);
     });
 };
+
+//打卡
+
+//请假
+exports.leave = (data, callback) => {
+  console.log("请假:",data);
+
+  AllDB.leaves
+    .insertMany(data)
+    .then((pro) => {
+      console.log("保存成功", pro);
+      callback(null, pro);
+    })
+    .catch((err) => {
+      console.log("保存失败", err);
+      callback(err);
+    });
+};
+
+//获取自己的请假信息
+exports.getLeaves = (data, callback) => {
+  AllDB.leaves
+    .find({username:data.username})
+    .then((pro) => {
+      console.log("保存成功", pro);
+      callback(null, pro);
+    })
+    .catch((err) => {
+      console.log("保存失败", err);
+      callback(err);
+    });
+};

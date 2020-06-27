@@ -148,4 +148,44 @@ router.post("/addOrgan", (req, res) => {
     });
   });
 });
+
+//打卡
+
+//请假
+router.post("/leave", (req, res) => {
+  console.log(req.body);
+
+  operateDB.leave(req.body, (err, data) => {
+    if (err) {
+      return res.json({
+        status: "错误",
+        msg: err,
+      });
+    }
+    return res.json({
+      status: "200",
+      value: data[0],
+      msg: "true",
+    });
+  });
+});
+
+//获取自己的请假信息
+router.post("/getLeaves", (req, res) => {
+  console.log(req.body);
+  
+  operateDB.getLeaves(req.body, (err, data) => {
+    if (err) {
+      return res.json({
+        status: "错误",
+        msg: err,
+      });
+    }
+    return res.json({
+      status: "200",
+      value: data,
+      msg: "true",
+    });
+  });
+});
 module.exports = router;

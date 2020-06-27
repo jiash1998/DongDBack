@@ -7,6 +7,7 @@ mongoose.connect("mongodb://localhost/DongDataBase", {
 
 var Schema = mongoose.Schema;
 
+//用户表
 var SchemaUser = new Schema({
   username: {
     type: String,
@@ -35,6 +36,7 @@ var SchemaUser = new Schema({
   },
 });
 
+//组织表
 var SchemaOrgan = new Schema({
   organName: {
     type: String,
@@ -63,7 +65,31 @@ var SchemaOrgan = new Schema({
   },
 });
 
+//请假表
+var SchemaLeave = new Schema({
+  username: {
+    type: String,
+    required: true,
+  },
+  organCode: {
+    type: String,
+    required: true,
+  },
+  type: {
+    type: String,
+  },
+  detail: {
+    type: String,
+  },
+  time: {
+    type: Array,
+  },
+  status: {
+    type: String,
+  },
+});
 module.exports = {
   users: mongoose.model("users", SchemaUser),
-  organs:mongoose.model("organs", SchemaOrgan)
+  organs: mongoose.model("organs", SchemaOrgan),
+  leaves: mongoose.model("leaves", SchemaLeave),
 };
