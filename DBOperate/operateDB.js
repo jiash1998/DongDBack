@@ -86,6 +86,19 @@ exports.getAllUser = (data, callback) => {
     });
 };
 
+//获取员工假条
+exports.getLeaveInfo = (data, callback) => {
+  AllDB.leaves
+    .find({ organCode: data.organCode })
+    .then((res) => {
+      callback(null, res);
+    })
+    .catch((err) => {
+      console.log(err);
+      callback(err);
+    });
+};
+
 //用户模块
 //获取所有组织
 exports.getAllOrgan = (callback) => {
@@ -141,10 +154,22 @@ exports.addOrgan = (data, callback) => {
 };
 
 //打卡
+exports.clockin = (data, callback) => {
+  AllDB.clocks
+    .insertMany(data)
+    .then((pro) => {
+      console.log("保存成功", pro);
+      callback(null, pro);
+    })
+    .catch((err) => {
+      console.log("保存失败", err);
+      callback(err);
+    });
+};
 
 //请假
 exports.leave = (data, callback) => {
-  console.log("请假:",data);
+  console.log("请假:", data);
 
   AllDB.leaves
     .insertMany(data)
@@ -161,7 +186,7 @@ exports.leave = (data, callback) => {
 //获取自己的请假信息
 exports.getLeaves = (data, callback) => {
   AllDB.leaves
-    .find({username:data.username})
+    .find({ username: data.username })
     .then((pro) => {
       console.log("保存成功", pro);
       callback(null, pro);

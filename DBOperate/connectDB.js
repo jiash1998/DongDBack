@@ -88,8 +88,31 @@ var SchemaLeave = new Schema({
     type: String,
   },
 });
+
+//打卡表
+var SchemaClock = new Schema({
+  username: {
+    type: String,
+    required: true,
+  },
+  organCode: {
+    type: String,
+    required: true,
+  },
+  todayStart: {
+    type: String,
+  },
+  todayEnd: {
+    type: String,
+  },
+  isEnd: {
+    type: String,
+    default:"false"
+  },
+});
 module.exports = {
   users: mongoose.model("users", SchemaUser),
   organs: mongoose.model("organs", SchemaOrgan),
   leaves: mongoose.model("leaves", SchemaLeave),
+  clocks: mongoose.model("clocks", SchemaClock),
 };

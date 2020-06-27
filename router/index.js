@@ -97,6 +97,23 @@ router.post("/allOrganUser", (req, res) => {
   });
 });
 
+//获取组织员工假条
+router.post("/getLeaveInfo", (req, res) => {
+  operateDB.getLeaveInfo(req.body, (err, data) => {
+    if (err) {
+      return res.json({
+        status: "错误",
+        msg: err,
+      });
+    }
+    return res.json({
+      status: "200",
+      value: data,
+      msg: "成功",
+    });
+  });
+});
+
 //用户模块
 //获取所有组织
 router.get("/getAllOrgan", (req, res) => {
@@ -150,6 +167,23 @@ router.post("/addOrgan", (req, res) => {
 });
 
 //打卡
+router.post("/clockin", (req, res) => {
+  console.log(req.body);
+
+  operateDB.clockin(req.body, (err, data) => {
+    if (err) {
+      return res.json({
+        status: "错误",
+        msg: err,
+      });
+    }
+    return res.json({
+      status: "200",
+      value: data[0],
+      msg: "true",
+    });
+  });
+});
 
 //请假
 router.post("/leave", (req, res) => {
@@ -173,7 +207,7 @@ router.post("/leave", (req, res) => {
 //获取自己的请假信息
 router.post("/getLeaves", (req, res) => {
   console.log(req.body);
-  
+
   operateDB.getLeaves(req.body, (err, data) => {
     if (err) {
       return res.json({
