@@ -114,6 +114,39 @@ router.post("/getLeaveInfo", (req, res) => {
   });
 });
 
+//获取打卡情况
+router.post("/getClockInfo", (req, res) => {
+  operateDB.getClockInfo(req.body, (err, data) => {
+    if (err) {
+      return res.json({
+        status: "错误",
+        msg: err,
+      });
+    }
+    return res.json({
+      status: "200",
+      value: data,
+      msg: "true",
+    });
+  });
+});
+//开除员工
+router.post("/removeOrganUser", (req, res) => {
+  operateDB.removeOragnUser(req.body, (err, data) => {
+    if (err) {
+      return res.json({
+        status: "错误",
+        msg: err,
+      });
+    }
+    return res.json({
+      status: "200",
+      value: data[0],
+      msg: "true",
+    });
+  });
+});
+
 //用户模块
 //获取所有组织
 router.get("/getAllOrgan", (req, res) => {

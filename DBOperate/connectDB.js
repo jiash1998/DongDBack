@@ -82,7 +82,7 @@ var SchemaLeave = new Schema({
     type: String,
   },
   time: {
-    type: Array,
+    type: String,
   },
   status: {
     type: String,

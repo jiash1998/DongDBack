@@ -99,6 +99,38 @@ exports.getLeaveInfo = (data, callback) => {
     });
 };
 
+//开除员工
+exports.removeOragnUser = (data, callback) => {
+  console.log(data);
+
+  AllDB.users
+    .update(
+      { username: data.username },
+      { $set: { organName: "none", organCode: "none"} }
+    )
+    .then((res) => {
+      console.log(res);
+      callback(null, res);
+    })
+    .catch((er) => {
+      console.log(err);
+      callback(err);
+    });
+};
+
+//获取员工打卡情况
+exports.getClockInfo = (data, callback) => {
+  AllDB.clocks
+    .find({ organCode: data.organCode })
+    .then((res) => {
+      console.log(res);
+      callback(null, res);
+    })
+    .catch((er) => {
+      console.log(err);
+      callback(err);
+    });
+};
 //用户模块
 //获取所有组织
 exports.getAllOrgan = (callback) => {
