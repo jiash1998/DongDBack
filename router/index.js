@@ -114,6 +114,23 @@ router.post("/getLeaveInfo", (req, res) => {
   });
 });
 
+//批准假条
+router.post("/replayLeave", (req, res) => {
+  operateDB.replayLeave(req.body, (err, data) => {
+    if (err) {
+      return res.json({
+        status: "错误",
+        msg: "false",
+      });
+    }
+    return res.json({
+      status: "200",
+      value: data,
+      msg: "true",
+    });
+  });
+});
+
 //获取打卡情况
 router.post("/getClockInfo", (req, res) => {
   operateDB.getClockInfo(req.body, (err, data) => {

@@ -99,6 +99,24 @@ exports.getLeaveInfo = (data, callback) => {
     });
 };
 
+//批准假条
+exports.replayLeave = (data, callback) => {
+  console.log(data);
+
+  AllDB.leaves
+    .update(
+      { username: data.username, time: data.time },
+      { $set: { status: "true" } }
+    )
+    .then((res) => {
+      callback(null, res);
+    })
+    .catch((err) => {
+      console.log(err);
+      callback(err);
+    });
+};
+
 //开除员工
 exports.removeOragnUser = (data, callback) => {
   console.log(data);
@@ -106,7 +124,7 @@ exports.removeOragnUser = (data, callback) => {
   AllDB.users
     .update(
       { username: data.username },
-      { $set: { organName: "none", organCode: "none"} }
+      { $set: { organName: "none", organCode: "none" } }
     )
     .then((res) => {
       console.log(res);
