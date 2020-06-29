@@ -99,15 +99,21 @@ var SchemaClock = new Schema({
     type: String,
     required: true,
   },
-  todayStart: {
+  todayStartDate: {
     type: String,
   },
-  todayEnd: {
+  todayStartTime: {
+    type: String,
+  },
+  todayEndDate: {
+    type: String,
+  },
+  todayEndTime: {
     type: String,
   },
   isEnd: {
     type: String,
-    default:"false"
+    default: "false",
   },
 });
 module.exports = {

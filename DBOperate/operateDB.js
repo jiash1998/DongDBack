@@ -186,8 +186,6 @@ exports.getInfoSelf = (data, callback) => {
 };
 //加入组织
 exports.addOrgan = (data, callback) => {
-  console.log(data);
-
   AllDB.users
     .update(
       { username: data.username },
@@ -205,16 +203,49 @@ exports.addOrgan = (data, callback) => {
 
 //打卡
 exports.clockin = (data, callback) => {
-  AllDB.clocks
-    .insertMany(data)
-    .then((pro) => {
-      console.log("保存成功", pro);
-      callback(null, pro);
-    })
-    .catch((err) => {
-      console.log("保存失败", err);
-      callback(err);
-    });
+  console.log("data:", data);
+
+  if (!data.todaEndDate && data.isEnd == "false") {
+    AllDB.clocks
+      .insertMany(data)
+      .then((pro) => {
+        console.log("保存成功1", pro);
+        callback(null, pro);
+      })
+      .catch((err) => {
+        console.log("保存失败1", err);
+        callback(err);
+      });
+  }
+  if (data.todayEndDate) {
+    AllDB.clocks
+      .update(
+        { username: data.username, todaStartDate: data.todaStartDate },
+        {
+          $set: {
+            todayEndDate: data.todayEndDate,
+            todayEndTime: data.todayEndTime,
+            isEnd: "true",
+          },
+        }
+      )
+      .then((pro) => {
+        console.log("更新成功", pro);
+        callback(null, pro);
+      })
+      .catch((err) => {
+        console.log("更新失败", err);
+        callback(err);
+      });
+  }
+};
+
+//获取当日打卡信息
+exports.getClockToday = async (data, callback) => {
+  let res = await AllDB.clocks.find({
+    username: data.username,
+  });
+  callback(null, res);
 };
 
 //请假

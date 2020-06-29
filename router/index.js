@@ -218,8 +218,6 @@ router.post("/addOrgan", (req, res) => {
 
 //打卡
 router.post("/clockin", (req, res) => {
-  console.log(req.body);
-
   operateDB.clockin(req.body, (err, data) => {
     if (err) {
       return res.json({
@@ -230,6 +228,23 @@ router.post("/clockin", (req, res) => {
     return res.json({
       status: "200",
       value: data[0],
+      msg: "true",
+    });
+  });
+});
+
+//获取当日打卡信息
+router.post("/getClockToday", (req, res) => {
+  operateDB.getClockToday(req.body, (err, data) => {
+    if (err) {
+      return res.json({
+        status: "错误",
+        msg: err,
+      });
+    }
+    return res.json({
+      status: "200",
+      value: data,
       msg: "true",
     });
   });
